@@ -1,4 +1,4 @@
-package com.example.internshipplatform_1;
+package com.example.InternshipPlatform_1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
