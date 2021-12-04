@@ -15,6 +15,7 @@ import com.example.InternshipPlatform_1.InternshipPlatform_1.service.IUserServic
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -40,18 +41,20 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     @Override
     public List<Announcement> getTeamAnnouncement(AnnouncementRequest announcementRequest) {
         QueryWrapper<Student> queryWrapper = new QueryWrapper();
-        queryWrapper.eq("studentId", announcementRequest.getListenerId());
+        queryWrapper.eq("student_id", announcementRequest.getListenerId());
         List<Student> list = studentService.list(queryWrapper);
-        List<Announcement> announcements = null;
+        List<Announcement> announcements = new ArrayList<Announcement>();
+        System.out.println(list);
 
         for (Student stu : list) {
             QueryWrapper<Project> projectQueryWrapper = new QueryWrapper();
-            projectQueryWrapper.eq("projectId", stu.getProjectId());
+            projectQueryWrapper.eq("project_id", stu.getProjectId());
             List<Project> projects = projectService.list(projectQueryWrapper);
+            System.out.println(projects);
             for (Project pro : projects) {
                 QueryWrapper<Announcement> announcementQueryWrapper = new QueryWrapper();
-                announcementQueryWrapper.orderByDesc("announceTime");
-                announcementQueryWrapper.eq("publisherId", pro.getProjectId());
+                announcementQueryWrapper.orderByDesc("announce_time");
+                announcementQueryWrapper.eq("publisher_id", pro.getLeaderId());
                 announcements.addAll(announcementService.list(announcementQueryWrapper));
             }
         }
