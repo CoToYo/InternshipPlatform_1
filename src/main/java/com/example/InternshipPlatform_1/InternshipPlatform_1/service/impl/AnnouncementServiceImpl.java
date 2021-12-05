@@ -30,6 +30,9 @@ import java.util.List;
 public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Announcement> implements IAnnouncementService {
 
     @Autowired
+    private IUserService userService;
+
+    @Autowired
     private IStudentService studentService;
 
     @Autowired
@@ -57,6 +60,20 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
                 announcementQueryWrapper.eq("publisher_id", pro.getLeaderId());
                 announcements.addAll(announcementService.list(announcementQueryWrapper));
             }
+        }
+        return announcements;
+    }
+
+    @Override
+    public List<Announcement> getSystemAnnouncement() {
+        QueryWrapper<User> userQueryWrapper = new QueryWrapper();
+        userQueryWrapper.eq("role", 40);
+        List<User> users = userService.list(userQueryWrapper);
+        List<Announcement> announcements = new ArrayList<Announcement>();
+        for (User user : users) {
+            QueryWrapper<Announcement> announcementQueryWrapper = new QueryWrapper();
+            announcementQueryWrapper.eq("publisher_id", user.getUserId());
+            announcements.addAll(announcementService.list(announcementQueryWrapper));
         }
         return announcements;
     }

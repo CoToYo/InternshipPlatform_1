@@ -24,11 +24,20 @@ public class AnnouncementController {
     @Autowired
     IAnnouncementService announcementService;
 
-    @PostMapping("t")
+    @PostMapping("getTeamAnnouncement/{}")
     public R getTeamAnnouncement(@RequestBody AnnouncementRequest announcementRequest) {
         R r = new R();
         r.setCode(111);
         r.setData(announcementService.getTeamAnnouncement(announcementRequest));
+        r.setMsg("111");
+        return r;
+    }
+
+    @GetMapping("getSystemAnnouncement")
+    public R getSystemAnnouncement() {
+        R r = new R();
+        r.setCode(111);
+        r.setData(announcementService.getSystemAnnouncement());
         r.setMsg("111");
         return r;
     }

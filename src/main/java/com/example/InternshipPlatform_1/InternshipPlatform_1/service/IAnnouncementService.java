@@ -17,4 +17,6 @@ import java.util.List;
 public interface IAnnouncementService extends IService<Announcement> {
 
     List<Announcement> getTeamAnnouncement(AnnouncementRequest announcementRequest);
+
+    List<Announcement> getSystemAnnouncement();
 }
