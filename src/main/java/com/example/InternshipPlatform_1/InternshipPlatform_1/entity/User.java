@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author cty
@@ -41,3 +41,4 @@ public class User implements Serializable {
 
 
 }
+
