@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -34,9 +33,6 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     private IStudentService studentService;
 
     @Autowired
-    private IAnnouncementService announcementService;
-
-    @Autowired
     private IProjectService projectService;
 
     @Autowired
@@ -45,7 +41,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     @Override
     public List<Announcement> getTeamAnnouncement(AnnouncementRequest announcementRequest) {
         QueryWrapper<Student> queryWrapper = new QueryWrapper();
-        queryWrapper.eq("student_id", announcementRequest.getListenerId());
+        queryWrapper.eq("student_id", announcementRequest.getId());
         List<Student> list = studentService.list(queryWrapper);
         List<Announcement> announcements = new ArrayList<Announcement>();
         System.out.println(list);
@@ -59,7 +55,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
                 QueryWrapper<Announcement> announcementQueryWrapper = new QueryWrapper();
                 announcementQueryWrapper.orderByDesc("announce_time");
                 announcementQueryWrapper.eq("publisher_id", pro.getLeaderId());
-                announcements.addAll(announcementService.list(announcementQueryWrapper));
+                announcements.addAll(this.list(announcementQueryWrapper));
             }
         }
         return announcements;
@@ -74,7 +70,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
         for (User user : users) {
             QueryWrapper<Announcement> announcementQueryWrapper = new QueryWrapper();
             announcementQueryWrapper.eq("publisher_id", user.getUserId());
-            announcements.addAll(announcementService.list(announcementQueryWrapper));
+            announcements.addAll(this.list(announcementQueryWrapper));
         }
         return announcements;
     }
@@ -100,13 +96,13 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
         int monthDay = date.getDate() - 1;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        dailyWorkReportQueryWrapper.eq("student_id", announcementRequest.getListenerId())
+        dailyWorkReportQueryWrapper.eq("student_id", announcementRequest.getId())
                 .eq("report_time", df.format(date));
 
-        weeklyWorkReportQueryWrapper.eq("student_id", announcementRequest.getListenerId())
+        weeklyWorkReportQueryWrapper.eq("student_id", announcementRequest.getId())
                 .between("report_time", df.format(new Date(date.getTime()-(long)day*24*60*60*1000)), date);
 
-        monthlyWorkReportQueryWrapper.eq("student_id", announcementRequest.getListenerId())
+        monthlyWorkReportQueryWrapper.eq("student_id", announcementRequest.getId())
                 .between("report_time", df.format(new Date(date.getTime()-(long)monthDay*24*60*60*1000)), date);
 
         List<WorkReport> dailyWorkReports = workReportService.list(dailyWorkReportQueryWrapper);
@@ -144,6 +140,32 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
         todos.add(weeklyTodo);
         todos.add(monthlyTodo);
         return todos;
+    }
+
+    @Override
+    public Boolean newTeamAnnouncement(Announcement announcement) {
+        return this.save(announcement);
+    }
+
+    @Override
+    public List<Project> getGroup(Integer myId) {
+        QueryWrapper<Project> projectQueryWrapper = new QueryWrapper<Project>();
+        projectQueryWrapper.eq("leader_id", myId);
+        List<Project> projects = projectService.list(projectQueryWrapper);
+        return projects;
+    }
+
+    @Override
+    public List<Student> getListeners(Project project) {
+        QueryWrapper<Student> studentQueryWrapper = new QueryWrapper<Student>();
+        studentQueryWrapper.eq("project_id", project.getProjectId());
+        List<Student> students = studentService.list(studentQueryWrapper);
+        return students;
+    }
+
+    @Override
+    public Boolean deleteAnnouncement(String announcementId) {
+        return this.deleteAnnouncement(announcementId);
     }
 
 

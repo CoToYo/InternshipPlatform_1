@@ -1,4 +1,4 @@
-package com.example.InternshipPlatform_1.InternshipPlatform_1;
+package com.example.InternshipPlatform_1;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;

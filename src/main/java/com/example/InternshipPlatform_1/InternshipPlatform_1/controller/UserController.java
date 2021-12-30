@@ -1,15 +1,11 @@
 package com.example.InternshipPlatform_1.InternshipPlatform_1.controller;
 
 
-import com.baomidou.mybatisplus.extension.api.R;
-import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.User;
-import com.example.InternshipPlatform_1.InternshipPlatform_1.mapper.UserMapper;
-import com.example.InternshipPlatform_1.InternshipPlatform_1.service.IUserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * <p>
@@ -24,19 +20,4 @@ import java.time.LocalDateTime;
 @CrossOrigin
 public class UserController {
 
-    public UserController(IUserService userService) {
-        this.userService = userService;
-    }
-
-    final
-    private IUserService userService;
-
-    @PostMapping(value = "/confirm", consumes = "application/json")
-    @ResponseStatus(HttpStatus.ACCEPTED)
-    public String updateUser(@RequestBody User user){
-//        R r = new R();
-//        r.setData()
-        userService.updateById(user);
-        return "updated";
-    }
 }
