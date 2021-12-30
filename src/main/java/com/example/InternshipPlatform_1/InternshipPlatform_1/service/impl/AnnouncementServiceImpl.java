@@ -4,6 +4,7 @@ import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.Announcement
 import com.example.InternshipPlatform_1.InternshipPlatform_1.mapper.AnnouncementMapper;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.service.IAnnouncementService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Service;
 
 /**

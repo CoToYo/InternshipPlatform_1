@@ -2,4 +2,34 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.InternshipPlatform_1.InternshipPlatform_1.mapper.AttendanceMapper">
 
+    <resultMap id="myResultMap" type="com.example.InternshipPlatform_1.InternshipPlatform_1.entity.AttendanceRecord">
+        <!--   主键字段     -->
+        <id column="student_id" property="studentId"></id>
+        <result column="student_name" property="studentName"></result>
+        <result column="project_name" property="projectName"></result>
+        <result column="attendance_time" property="attendanceTime"></result>
+    </resultMap>
+    
+    <select id="queryAttendance_0"  resultMap="myResultMap">
+
+        select student_id, student_name, project_name, attendance_time
+        from Student inner join Project on Student.project_id = Project.project_id inner join Attendance on Student.student_id = Attendance.user_id
+        where Attendance.attendance_time >= #{present_time}
+
+    </select>
+
+    <select id="queryAttendance_1"  resultMap="myResultMap">
+
+        select student_id, student_name, project_name, attendance_time
+        from Student inner join Project on Student.project_id = Project.project_id inner join Attendance on Student.student_id = Attendance.user_id
+        where Attendance.attendance_time >= #{weekBegin} and #{present_time} >= Attendance.attendance_time
+
+    </select>
+
+    <select id="queryAttendance_2" resultMap="myResultMap">
+        select student_id, student_name, project_name, attendance_time
+        from Student inner join Project on Student.project_id = Project.project_id inner join Attendance on Student.student_id = Attendance.user_id
+        where Attendance.attendance_time >= #{monthBegin} and #{present_time} >= Attendance.attendance_time
+    </select>
+
 </mapper>
