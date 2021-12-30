@@ -15,6 +15,7 @@ import java.util.List;
  *
  * @author cty
  * @since 2021-12-03
+ *
  */
 @Mapper
 public interface AnnouncementMapper extends BaseMapper<Announcement> {

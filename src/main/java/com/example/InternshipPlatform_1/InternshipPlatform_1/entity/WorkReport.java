@@ -30,7 +30,13 @@ public class WorkReport implements Serializable {
 
     private LocalDateTime reportTime;
 
-    private String reportContent;
+    private String completedContent;
+
+    private String incompletedContent;
+
+    private String solutionContent;
+
+    private String futureContent;
 
     private String reportType;
 

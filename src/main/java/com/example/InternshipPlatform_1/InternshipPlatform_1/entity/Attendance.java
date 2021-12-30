@@ -30,9 +30,10 @@ public class Attendance implements Serializable {
 
     private LocalDateTime attendanceTime;
 
-    private String attendanceType;
+    private Integer attendanceType;
 
     private Integer projectId;
 
 
 }
+
