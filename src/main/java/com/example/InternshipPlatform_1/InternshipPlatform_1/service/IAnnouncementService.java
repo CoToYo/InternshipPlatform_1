@@ -2,6 +2,8 @@ package com.example.InternshipPlatform_1.InternshipPlatform_1.service;
 
 import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.Announcement;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.Project;
+import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.Student;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.vo.AnnouncementRequest;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.vo.Todo;
 
@@ -22,4 +24,13 @@ public interface IAnnouncementService extends IService<Announcement> {
     List<Announcement> getSystemAnnouncement();
 
     List<Todo> getTodo(AnnouncementRequest announcementRequest);
+
+    Boolean newTeamAnnouncement(Announcement announcement);
+
+    List<Project> getGroup(Integer listenerId);
+
+    List<Student> getListeners(Project project);
+
+    Boolean deleteAnnouncement(String announcementId);
+
 }

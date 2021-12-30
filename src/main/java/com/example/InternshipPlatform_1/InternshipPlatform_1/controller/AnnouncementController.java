@@ -2,6 +2,8 @@ package com.example.InternshipPlatform_1.InternshipPlatform_1.controller;
 
 
 import com.baomidou.mybatisplus.extension.api.R;
+import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.Announcement;
+import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.Project;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.vo.AnnouncementRequest;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.service.IAnnouncementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,30 +24,52 @@ public class AnnouncementController {
     @Autowired
     IAnnouncementService announcementService;
 
-    @PostMapping("getTeamAnnouncement")
+    @GetMapping("getTeamAnnouncement")
     public R getTeamAnnouncement(@RequestBody AnnouncementRequest announcementRequest) {
         R r = new R();
-        r.setCode(111);
         r.setData(announcementService.getTeamAnnouncement(announcementRequest));
-        r.setMsg("111");
         return r;
     }
 
     @GetMapping("getSystemAnnouncement")
     public R getSystemAnnouncement() {
         R r = new R();
-        r.setCode(111);
         r.setData(announcementService.getSystemAnnouncement());
-        r.setMsg("111");
         return r;
     }
 
     @GetMapping("getTodo")
     public R getTodo(@RequestBody AnnouncementRequest announcementRequest) {
         R r = new R();
-        r.setCode(111);
-        r.setMsg("111");
         r.setData(announcementService.getTodo(announcementRequest));
+        return r;
+    }
+
+    @PostMapping("newTeamAnnouncement")
+    public R newTeamAnnouncement(@RequestBody Announcement announcement) {
+        R r = new R();
+        r.setData(announcementService.newTeamAnnouncement(announcement));
+        return r;
+    }
+
+    @PostMapping("getGroup")
+    public R getGroup(@RequestBody AnnouncementRequest announcementRequest) {
+        R r = new R();
+        r.setData(announcementService.getGroup(announcementRequest.getListenerId()));
+        return r;
+    }
+
+    @PostMapping("getListeners")
+    public R getListeners(@RequestBody Project project) {
+        R r = new R();
+        r.setData(announcementService.getListeners(project));
+        return r;
+    }
+
+    @DeleteMapping("deleteAnnouncement/{announcementId}")
+    public R deleteAnnouncement(@PathVariable("announcementId") String announcementId) {
+        R r = new R();
+        r.setData(announcementService.deleteAnnouncement(announcementId));
         return r;
     }
 }
