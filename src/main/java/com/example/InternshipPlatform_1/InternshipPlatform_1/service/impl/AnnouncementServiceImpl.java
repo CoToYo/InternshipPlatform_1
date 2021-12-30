@@ -41,7 +41,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     @Override
     public List<Announcement> getTeamAnnouncement(AnnouncementRequest announcementRequest) {
         QueryWrapper<Student> queryWrapper = new QueryWrapper();
-        queryWrapper.eq("student_id", announcementRequest.getListenerId());
+        queryWrapper.eq("student_id", announcementRequest.getId());
         List<Student> list = studentService.list(queryWrapper);
         List<Announcement> announcements = new ArrayList<Announcement>();
         System.out.println(list);
@@ -96,13 +96,13 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
         int monthDay = date.getDate() - 1;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        dailyWorkReportQueryWrapper.eq("student_id", announcementRequest.getListenerId())
+        dailyWorkReportQueryWrapper.eq("student_id", announcementRequest.getId())
                 .eq("report_time", df.format(date));
 
-        weeklyWorkReportQueryWrapper.eq("student_id", announcementRequest.getListenerId())
+        weeklyWorkReportQueryWrapper.eq("student_id", announcementRequest.getId())
                 .between("report_time", df.format(new Date(date.getTime()-(long)day*24*60*60*1000)), date);
 
-        monthlyWorkReportQueryWrapper.eq("student_id", announcementRequest.getListenerId())
+        monthlyWorkReportQueryWrapper.eq("student_id", announcementRequest.getId())
                 .between("report_time", df.format(new Date(date.getTime()-(long)monthDay*24*60*60*1000)), date);
 
         List<WorkReport> dailyWorkReports = workReportService.list(dailyWorkReportQueryWrapper);
