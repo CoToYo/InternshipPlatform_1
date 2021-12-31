@@ -26,15 +26,17 @@ public class Leave implements Serializable {
     @TableId(value = "record_id", type = IdType.AUTO)
     private Integer recordId;
 
-    private LocalDateTime askTime;
+    private LocalDateTime askTime; //请假申请发出时间
 
-    private LocalDateTime leaveTime;
+    private LocalDateTime leaveTime; //申请什么时间请假
 
-    private String reason;
+    private String reason; //请假理由
 
-    private Integer approverId;
+    private Integer approverId; //批准人ID
 
-    private Integer applicantId;
+    private String applicantName; //请假人的姓名
+
+    private Integer applicationId; // 请假人ID
 
 
 }

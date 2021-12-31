@@ -9,7 +9,7 @@ public class UserHolder {
         requestHolder.set(user);
     }
 
-    public static User getId() {
+    public static User getUser() {
         return requestHolder.get();
     }
 
