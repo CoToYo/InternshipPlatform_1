@@ -2,6 +2,7 @@ package com.example.InternshipPlatform_1.InternshipPlatform_1.mapper;
 
 import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.Evaluation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
@@ -14,5 +15,5 @@ import org.apache.ibatis.annotations.Mapper;
  */
 @Mapper
 public interface EvaluationMapper extends BaseMapper<Evaluation> {
-//    int insert(Evaluation evaluation);
+    User selectByUserName(String userName);
 }

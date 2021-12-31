@@ -28,11 +28,13 @@ public class Evaluation implements Serializable {
 
     private LocalDateTime evaluationTime;
 
+    private String evaluatedName;//受评价人姓名
+
     private String evaluationContent;
 
-    private Integer evaluatorId;
+    private Integer evaluatorId;//评价人ID
 
-    private Integer appraiseeId;
+    private Integer evaluatedId;//受评价人ID
 
     private Integer projectId;
 

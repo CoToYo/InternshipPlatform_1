@@ -27,7 +27,7 @@ import java.util.List;
  */
 @RestController
 @ResponseBody
-//@CrossOrigin
+@CrossOrigin
 @RequestMapping(value = "/InternshipPlatform_1/attendance")
 public class AttendanceController {
 
@@ -75,7 +75,6 @@ public class AttendanceController {
     @ResponseStatus(HttpStatus.CREATED)
     public List<AttendanceRecord> getAttendance(int code, @DateTimeFormat(pattern = "yyyy-MM-ddHH:mm:ss") LocalDateTime present_time){
 
-        System.out.println("present_time: "+present_time);
 
         //AttendanceRecord是专门为考勤记录的查询设计的实体类
         List<AttendanceRecord> attendance = this.attendanceService.getAttendance(code, present_time); //code为状态码：0-查询当日考勤记录，1-查询当周考勤记录，2-查询当月考勤记录

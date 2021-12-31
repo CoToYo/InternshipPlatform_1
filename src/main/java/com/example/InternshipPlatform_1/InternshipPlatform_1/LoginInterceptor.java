@@ -19,6 +19,10 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
+
+        if(request.getMethod().equals("OPTIONS") || request.getMethod().equals("options")) {
+            return HandlerInterceptor.super.preHandle(request, response, handler);
+        }
         if(token == null || token.equals("")) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"用户未登录");
             return false;
