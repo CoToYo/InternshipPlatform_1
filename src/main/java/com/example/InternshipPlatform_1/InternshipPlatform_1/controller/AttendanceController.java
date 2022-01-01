@@ -48,7 +48,7 @@ public class AttendanceController {
         //当前操作的用户信息
         User user = UserHolder.getUser();
 
-        attendance.setAttendanceId(user.getUserId());
+        attendance.setUserId(user.getUserId());
         attendance.setAttendanceTime(attendance_time); //后台生成考勤打卡时间
 
         user.setRole(userMapper.selectById(UserHolder.getUser()).getRole());// 获取当前操作用户的身份

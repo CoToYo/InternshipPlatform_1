@@ -30,13 +30,15 @@ public class Leave implements Serializable {
 
     private LocalDateTime leaveTime; //申请什么时间请假
 
+    private LocalDateTime backTime; // 请假结束时间
+
     private String reason; //请假理由
 
     private Integer approverId; //批准人ID
 
     private String applicantName; //请假人的姓名
 
-    private Integer applicationId; // 请假人ID
+    private Integer applicantId; // 请假人ID
 
 
 }

@@ -23,6 +23,7 @@ public class StudentReport implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "report_id", type = IdType.AUTO)
+
     private Integer reportId;
 
     private Integer studentId;
@@ -30,6 +31,8 @@ public class StudentReport implements Serializable {
     private String studentScore;
 
     private Integer projectId;
+
+    private String studentName; //需额外查询出来
 
     private String projectName;
 

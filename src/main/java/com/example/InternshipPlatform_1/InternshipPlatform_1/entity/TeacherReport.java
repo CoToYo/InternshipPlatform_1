@@ -27,7 +27,8 @@ public class TeacherReport implements Serializable {
 
     private Integer teacherId;
 
-    private String teacherWorkload;
+    private String teacherName;
 
+    private String teacherWorkload;
 
 }

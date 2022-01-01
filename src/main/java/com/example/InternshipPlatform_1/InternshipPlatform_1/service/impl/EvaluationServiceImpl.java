@@ -29,7 +29,7 @@ public class EvaluationServiceImpl extends ServiceImpl<EvaluationMapper, Evaluat
     //利用姓名查找对应用户信息
     public User selectByUserName(String userName){
         QueryWrapper<User> wrapper = Wrappers.query();
-        wrapper.likeRight("userName", userName);
+        wrapper.likeRight("user_name", userName);
         User user = userMapper.selectOne(wrapper);
 
         return user;

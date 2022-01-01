@@ -2,7 +2,10 @@ package com.example.InternshipPlatform_1.InternshipPlatform_1.controller;
 
 
 import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.Leave;
+import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.User;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.mapper.LeaveMapper;
+import com.example.InternshipPlatform_1.InternshipPlatform_1.mapper.UserMapper;
+import com.example.InternshipPlatform_1.InternshipPlatform_1.utils.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,11 +29,19 @@ public class LeaveController {
 
     @Autowired
     LeaveMapper leaveMapper;
+    @Autowired
+    UserMapper userMapper;
 
     @PostMapping(value = "/confirm", consumes = "application/json")
     public String uploadLeaveRecord(@RequestBody Leave leave){
+
         LocalDateTime present_time = LocalDateTime.now();
         leave.setAskTime(present_time);//后台生成请假申请的请求时间
+
+        User applicantUser = UserHolder.getUser();//当前操作者(请假申请者)的信息
+        leave.setApplicantId(applicantUser.getUserId());//记录请假申请者的ID
+        leave.setApplicantName(userMapper.selectById(applicantUser.getUserId()).getUserName());//记录请假申请者的姓名
+
 
         leaveMapper.insert(leave);//将请假信息写入数据库
 

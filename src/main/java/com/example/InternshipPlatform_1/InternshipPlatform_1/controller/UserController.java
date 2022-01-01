@@ -30,7 +30,7 @@ public class UserController {
 
     @PostMapping("/login")
     public Map<String, Object> login(@RequestBody User user) {
-        System.out.println(user);
+//        System.out.println(user);
         User user1 = userService.get(user.getUserName(), user.getPassword());
         Map<String, Object> res = new HashMap<>();
         if(user1 == null) {

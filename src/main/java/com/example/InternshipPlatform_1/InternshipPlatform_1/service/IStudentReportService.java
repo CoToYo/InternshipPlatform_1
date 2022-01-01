@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-12-03
  */
 public interface IStudentReportService extends IService<StudentReport> {
-
+    StudentReport selectByUserId(Integer studentId);
 }

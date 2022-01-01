@@ -20,6 +20,8 @@ public class LoginInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         String token = request.getHeader("token");
 
+//        System.out.println("token: "+token);
+
         if(request.getMethod().equals("OPTIONS") || request.getMethod().equals("options")) {
             return HandlerInterceptor.super.preHandle(request, response, handler);
         }
@@ -27,15 +29,15 @@ public class LoginInterceptor implements HandlerInterceptor {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"用户未登录");
             return false;
         }
-        Map<String, Object> token1 = JWTUtils.parseToken(token);
-        System.out.println(token1);
-        if(token1 == null) {
+        Map<String, Object> parsedToken = JWTUtils.parseToken(token);
+//        System.out.println("parsedToken: "+parsedToken);
+        if(parsedToken == null) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED,"用户未登录");
             return false;
         }
         User user = new User();
-        user.setUserId((Integer) token1.get("uid"));
-        user.setUserName((String) token1.get("userName"));
+        user.setUserId((Integer) parsedToken.get("uid"));
+        user.setUserName((String) parsedToken.get("userName"));
         UserHolder.add(user);
         return HandlerInterceptor.super.preHandle(request, response, handler);
     }
