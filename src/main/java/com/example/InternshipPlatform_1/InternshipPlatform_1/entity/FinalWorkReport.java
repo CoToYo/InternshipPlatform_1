@@ -24,7 +24,7 @@ public class FinalWorkReport implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "分数", required = true)
+    @ApiModelProperty(value = "分数")
     private String score;
 
     @ApiModelProperty(value = "学生id")
