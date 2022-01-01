@@ -21,8 +21,8 @@ public class LoginInterceptor implements HandlerInterceptor {
         String token = request.getHeader("token");
 
 //        System.out.println("token: "+token);
-
-        if(request.getMethod().equals("OPTIONS") || request.getMethod().equals("options")) {
+        System.out.println(request.getRequestURL());
+        if(request.getMethod().equals("OPTIONS") || request.getMethod().equals("options") || request.getRequestURI().contains("swagger") || request.getRequestURI().contains("swagger-resource")) {
             return HandlerInterceptor.super.preHandle(request, response, handler);
         }
         if(token == null || token.equals("")) {

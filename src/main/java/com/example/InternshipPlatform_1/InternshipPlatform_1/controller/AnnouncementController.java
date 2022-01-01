@@ -37,7 +37,7 @@ public class AnnouncementController {
     }
 
     @ApiOperation(value = "获取当前用户的系统公告")
-    @PostMapping("getSystemAnnouncement")
+    @GetMapping("getSystemAnnouncement")
     public R getSystemAnnouncement() {
         R r = new R();
         r.setData(announcementService.getSystemAnnouncement());
@@ -62,7 +62,7 @@ public class AnnouncementController {
     }
 
     @ApiOperation(value = "获取当前用户领导的所有小组")
-    @PostMapping("getGroup")
+    @GetMapping("getGroup")
     public R getGroup() {
         User user = UserHolder.getUser();
         R r = new R();
