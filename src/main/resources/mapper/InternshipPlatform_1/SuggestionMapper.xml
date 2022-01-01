@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.InternshipPlatform_1.InternshipPlatform_1.mapper.ProjectMapper">
+
+    <resultMap id="myResultMap" type="com.example.InternshipPlatform_1.InternshipPlatform_1.entity.Project">
+        <!--   主键字段     -->
+        <id column="project_id" property="projectId"></id>
+        <result column="published_time" property="publishedTime"></result>
+        <result column="start_time" property="startTime"></result>
+        <result column="duration" property="duration"></result>
+        <result column="project_profile" property="projectProfile"></result>
+        <result column="leader_id" property="leaderId"></result>
+        <result column="institution_id" property="institutionId"></result>
+        <result column="project_name" property="projectName"></result>
+        <result column="project_type" property="projectType"></result>
+    </resultMap>
+
+    <select id="querySuggestion" resultMap="myResultMap">
+
+        select *
+        from Project
+        where project_type=#{project_type}
+    </select>
+</mapper>
+
