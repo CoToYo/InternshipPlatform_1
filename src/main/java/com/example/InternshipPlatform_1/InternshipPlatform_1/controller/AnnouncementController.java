@@ -3,9 +3,9 @@ package com.example.InternshipPlatform_1.InternshipPlatform_1.controller;
 
 import com.baomidou.mybatisplus.extension.api.R;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.Announcement;
-import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.Project;
-import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.vo.AnnouncementRequest;
+import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.User;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.service.IAnnouncementService;
+import com.example.InternshipPlatform_1.InternshipPlatform_1.utils.UserHolder;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +29,15 @@ public class AnnouncementController {
 
     @ApiOperation(value = "获取当前用户的团队公告")
     @GetMapping("getTeamAnnouncement")
-    public R getTeamAnnouncement(@RequestBody AnnouncementRequest announcementRequest) {
+    public R getTeamAnnouncement() {
+        User user = UserHolder.getUser();
         R r = new R();
-        r.setData(announcementService.getTeamAnnouncement(announcementRequest));
+        r.setData(announcementService.getTeamAnnouncement(user.getUserId()));
         return r;
     }
 
     @ApiOperation(value = "获取当前用户的系统公告")
-    @GetMapping("getSystemAnnouncement")
+    @PostMapping("getSystemAnnouncement")
     public R getSystemAnnouncement() {
         R r = new R();
         r.setData(announcementService.getSystemAnnouncement());
@@ -45,9 +46,10 @@ public class AnnouncementController {
 
     @ApiOperation(value = "获取待办事项\n我们之前说的是只有日报周报月报的完成情况")
     @GetMapping("getTodo")
-    public R getTodo(@RequestBody AnnouncementRequest announcementRequest) {
+    public R getTodo() {
+        User user = UserHolder.getUser();
         R r = new R();
-        r.setData(announcementService.getTodo(announcementRequest));
+        r.setData(announcementService.getTodo(user.getUserId()));
         return r;
     }
 
@@ -61,17 +63,18 @@ public class AnnouncementController {
 
     @ApiOperation(value = "获取当前用户领导的所有小组")
     @PostMapping("getGroup")
-    public R getGroup(@RequestBody AnnouncementRequest announcementRequest) {
+    public R getGroup() {
+        User user = UserHolder.getUser();
         R r = new R();
-        r.setData(announcementService.getGroup(announcementRequest.getId()));
+        r.setData(announcementService.getGroup(user.getUserId()));
         return r;
     }
 
     @ApiOperation(value = "获取当前用户选择发布的小组的所有人")
-    @PostMapping("getListeners")
-    public R getListeners(@RequestBody Project project) {
+    @GetMapping("getListeners/{groupId}")
+    public R getListeners(@PathVariable("groupId") int groupId) {
         R r = new R();
-        r.setData(announcementService.getListeners(project));
+        r.setData(announcementService.getListeners(groupId));
         return r;
     }
 
@@ -82,4 +85,5 @@ public class AnnouncementController {
         r.setData(announcementService.deleteAnnouncement(announcementId));
         return r;
     }
+
 }

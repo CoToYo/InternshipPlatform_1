@@ -2,7 +2,6 @@ package com.example.InternshipPlatform_1.InternshipPlatform_1.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.*;
-import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.vo.AnnouncementRequest;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.vo.Todo;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.mapper.AnnouncementMapper;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.service.*;
@@ -39,9 +38,9 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     private IWorkReportService workReportService;
 
     @Override
-    public List<Announcement> getTeamAnnouncement(AnnouncementRequest announcementRequest) {
+    public List<Announcement> getTeamAnnouncement(Integer userId) {
         QueryWrapper<Student> queryWrapper = new QueryWrapper();
-        queryWrapper.eq("student_id", announcementRequest.getId());
+        queryWrapper.eq("student_id", userId);
         List<Student> list = studentService.list(queryWrapper);
         List<Announcement> announcements = new ArrayList<Announcement>();
         System.out.println(list);
@@ -87,7 +86,7 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
 //    }
 
     @Override
-    public List<Todo> getTodo(AnnouncementRequest announcementRequest) {
+    public List<Todo> getTodo(Integer userId) {
         QueryWrapper<WorkReport> dailyWorkReportQueryWrapper = new QueryWrapper();
         QueryWrapper<WorkReport> weeklyWorkReportQueryWrapper = new QueryWrapper();
         QueryWrapper<WorkReport> monthlyWorkReportQueryWrapper = new QueryWrapper();
@@ -96,13 +95,13 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
         int monthDay = date.getDate() - 1;
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
 
-        dailyWorkReportQueryWrapper.eq("student_id", announcementRequest.getId())
+        dailyWorkReportQueryWrapper.eq("student_id", userId)
                 .eq("report_time", df.format(date));
 
-        weeklyWorkReportQueryWrapper.eq("student_id", announcementRequest.getId())
+        weeklyWorkReportQueryWrapper.eq("student_id", userId)
                 .between("report_time", df.format(new Date(date.getTime()-(long)day*24*60*60*1000)), date);
 
-        monthlyWorkReportQueryWrapper.eq("student_id", announcementRequest.getId())
+        monthlyWorkReportQueryWrapper.eq("student_id", userId)
                 .between("report_time", df.format(new Date(date.getTime()-(long)monthDay*24*60*60*1000)), date);
 
         List<WorkReport> dailyWorkReports = workReportService.list(dailyWorkReportQueryWrapper);
@@ -156,9 +155,9 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     }
 
     @Override
-    public List<Student> getListeners(Project project) {
+    public List<Student> getListeners(Integer groupId) {
         QueryWrapper<Student> studentQueryWrapper = new QueryWrapper<Student>();
-        studentQueryWrapper.eq("project_id", project.getProjectId());
+        studentQueryWrapper.eq("project_id", groupId);
         List<Student> students = studentService.list(studentQueryWrapper);
         return students;
     }
