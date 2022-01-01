@@ -11,9 +11,7 @@ import com.example.InternshipPlatform_1.InternshipPlatform_1.service.IProjectSer
 import com.example.InternshipPlatform_1.InternshipPlatform_1.service.IStudentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import sun.awt.image.ImageWatched;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -45,30 +43,13 @@ public class FinalWorkReportServiceImpl extends ServiceImpl<FinalWorkReportMappe
     }
 
     @Override
-    public List<FinalWorkReport> teacherGetOne(Integer id) {
-        QueryWrapper<Project> projectQueryWrapper = new QueryWrapper<Project>();
-        projectQueryWrapper.eq("leader_id", id).select("project_id");
-        List<Project> projects = projectService.list(projectQueryWrapper);
-
-        if (projects.isEmpty()) {
+    public FinalWorkReport getOne(Integer id) {
+        QueryWrapper<FinalWorkReport> finalWorkReportQueryWrapper = new QueryWrapper<FinalWorkReport>();
+        finalWorkReportQueryWrapper.eq("student_id", id);
+        List<FinalWorkReport> list = this.list(finalWorkReportQueryWrapper);
+        if (list.isEmpty()) {
             return null;
         }
-
-        QueryWrapper<Student> studentQueryWrapper = new QueryWrapper<Student>();
-        studentQueryWrapper.eq("group_id", projects.get(0).getProjectId()).select("student_id");
-        List<Student> students = studentService.list(studentQueryWrapper);
-
-        List<FinalWorkReport> all = new LinkedList<FinalWorkReport>();
-
-        for (Student stu : students) {
-            QueryWrapper<FinalWorkReport> finalWorkReportQueryWrapper = new QueryWrapper<FinalWorkReport>();
-            finalWorkReportQueryWrapper.eq("student_id", id);
-            all.addAll(this.list(finalWorkReportQueryWrapper));
-        }
-
-        if (all.isEmpty()) {
-            return null;
-        }
-        return all;
+        return list.get(0);
     }
 }

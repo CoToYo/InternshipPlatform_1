@@ -12,7 +12,7 @@ import lombok.EqualsAndHashCode;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author cty
@@ -49,9 +49,6 @@ public class Project implements Serializable {
 
     @ApiModelProperty(value = "项目名称", required = true)
     private String projectName;
-
-    @ApiModelProperty(value = "项目项目类型", required = true)
-    private int projectType;
 
 
 }
