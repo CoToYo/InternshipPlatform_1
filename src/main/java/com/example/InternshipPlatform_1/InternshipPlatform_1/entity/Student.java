@@ -22,10 +22,9 @@ public class Student implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "record_id", type = IdType.AUTO)
-    private Integer recordId;
-
     private Integer studentId;
+
+    private String studentName;
 
     private Integer projectId;
 

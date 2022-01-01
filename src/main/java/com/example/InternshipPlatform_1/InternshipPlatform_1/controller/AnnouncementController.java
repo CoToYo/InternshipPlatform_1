@@ -80,7 +80,7 @@ public class AnnouncementController {
 
     @ApiOperation(value = "根据公告id删除公告")
     @DeleteMapping("deleteAnnouncement/{announcementId}")
-    public R deleteAnnouncement(@PathVariable("announcementId") String announcementId) {
+    public R deleteAnnouncement(@PathVariable("announcementId") int announcementId) {
         R r = new R();
         r.setData(announcementService.deleteAnnouncement(announcementId));
         return r;

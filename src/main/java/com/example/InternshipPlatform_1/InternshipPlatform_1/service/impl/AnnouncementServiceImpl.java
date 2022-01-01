@@ -6,6 +6,7 @@ import com.example.InternshipPlatform_1.InternshipPlatform_1.entity.vo.Todo;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.mapper.AnnouncementMapper;
 import com.example.InternshipPlatform_1.InternshipPlatform_1.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.example.InternshipPlatform_1.InternshipPlatform_1.utils.UserHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,8 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
         queryWrapper.eq("student_id", userId);
         List<Student> list = studentService.list(queryWrapper);
         List<Announcement> announcements = new ArrayList<Announcement>();
+
+        System.out.println(list);
 
         for (Student stu : list) {
             QueryWrapper<Project> projectQueryWrapper = new QueryWrapper();
@@ -142,6 +145,8 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
 
     @Override
     public Boolean newTeamAnnouncement(Announcement announcement) {
+        User user = UserHolder.getUser();
+        announcement.setPublisherId(user.getUserId());
         return this.save(announcement);
     }
 
@@ -162,8 +167,8 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
     }
 
     @Override
-    public Boolean deleteAnnouncement(String announcementId) {
-        return this.deleteAnnouncement(announcementId);
+    public Boolean deleteAnnouncement(Integer announcementId) {
+        return this.removeById(announcementId);
     }
 
 

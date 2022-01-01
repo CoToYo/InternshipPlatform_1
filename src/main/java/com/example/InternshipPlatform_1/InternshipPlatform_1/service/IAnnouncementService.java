@@ -30,6 +30,6 @@ public interface IAnnouncementService extends IService<Announcement> {
 
     List<Student> getListeners(Integer groupId);
 
-    Boolean deleteAnnouncement(String announcementId);
+    Boolean deleteAnnouncement(Integer announcementId);
 
 }
