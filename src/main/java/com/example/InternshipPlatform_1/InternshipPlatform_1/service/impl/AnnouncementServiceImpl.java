@@ -43,13 +43,12 @@ public class AnnouncementServiceImpl extends ServiceImpl<AnnouncementMapper, Ann
         queryWrapper.eq("student_id", userId);
         List<Student> list = studentService.list(queryWrapper);
         List<Announcement> announcements = new ArrayList<Announcement>();
-        System.out.println(list);
 
         for (Student stu : list) {
             QueryWrapper<Project> projectQueryWrapper = new QueryWrapper();
             projectQueryWrapper.eq("project_id", stu.getProjectId());
             List<Project> projects = projectService.list(projectQueryWrapper);
-            System.out.println(projects);
+//            System.out.println(projects);
             for (Project pro : projects) {
                 QueryWrapper<Announcement> announcementQueryWrapper = new QueryWrapper();
                 announcementQueryWrapper.orderByDesc("announce_time");

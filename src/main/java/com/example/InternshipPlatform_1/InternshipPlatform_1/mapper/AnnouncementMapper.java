@@ -20,6 +20,6 @@ import java.util.List;
 @Mapper
 public interface AnnouncementMapper extends BaseMapper<Announcement> {
 
-    @Select("SELECT a.")
-    List<AnnouncementAndProject> getAllLeadersGroup();
+//    @Select("SELECT a.")
+//    List<AnnouncementAndProject> getAllLeadersGroup();
 }
