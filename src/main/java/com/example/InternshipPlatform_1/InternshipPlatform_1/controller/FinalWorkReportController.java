@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2022-01-02
  */
 @RestController
-@RequestMapping("/InternshipPlatform_1/final-work-report")
+@RequestMapping("/InternshipPlatform_1/finalWorkReport")
 @Api(tags = "实习报告，显示")
 public class FinalWorkReportController {
 
@@ -39,11 +39,11 @@ public class FinalWorkReportController {
     }
 
     @ApiOperation(value = "返回实习报告")
-    @GetMapping("getOne")
+    @GetMapping("teacherGetOne")
     public R getOne() {
         User user = UserHolder.getUser();
         R r = new R();
-        r.setData(finalWorkReportService.getOne(user.getUserId()));
+        r.setData(finalWorkReportService.teacherGetOne(user.getUserId()));
         return r;
     }
 
